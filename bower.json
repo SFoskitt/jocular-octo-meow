@@ -1,5 +1,5 @@
 {
-  "name": "backbone-boilerplate",
+  "name": "jocular-octo-meow",
   "dependencies": {
     "lodash": "~2.4.1",
     "backbone": "~1.1.2",

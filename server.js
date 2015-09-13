@@ -27,9 +27,16 @@ var sendResponse = function(response, obj, status){
 	response.end(obj);
 };
 
-var serveFile = function(request, response){
-
-	fs.readFile(**PATH**, 'utf8', function(err,data){
+var serveIndex = function(request, response){
+	var file = request.url.slice(1);
+	console.log("file path",file)
+	// if (file === ''){
+	// 	file = 'app/index.html'
+	// }
+	file === '' ? file = 'app/index.html' : file = file;
+	
+	fs.readFile(file, 'utf8', function(err,data){
+		// console.log('data from fs.readfile', data)
 		if(err){ console.log("your error ", err); 
 		} else { sendResponse(response, data); }
 	})
