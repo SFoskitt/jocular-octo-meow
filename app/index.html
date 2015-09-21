@@ -3,24 +3,81 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+	<link rel="stylesheet" href="/../node_modules/leaflet-search/src/leaflet-search.css" />
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+	<script src="/../node_modules/leaflet-search/src/leaflet-search.js"></script>
+	<script>
+  $(function() {
+  	var availableTags = server.fetchData;
+    // var availableTags = [
+    //   "ActionScript",
+    //   "AppleScript",
+    //   "Asp",
+    //   "BASIC",
+    //   "C",
+    //   "C++",
+    //   "Clojure",
+    //   "COBOL",
+    //   "ColdFusion",
+    //   "Erlang",
+    //   "Fortran",
+    //   "Groovy",
+    //   "Haskell",
+    //   "Java",
+    //   "JavaScript",
+    //   "Lisp",
+    //   "Perl",
+    //   "PHP",
+    //   "Python",
+    //   "Ruby",
+    //   "Scala",
+    //   "Scheme"
+    // ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  });
+  </script>
 	<title>Movies Filmed in San Francisco</title>
 </head>
 
 <body>
 
 <p>HEY YOU GUYS</p>
-<div>
-Put the jq auto complete in here
+
+<div id="search">
+  <label for="tags">Tags: </label>
+  <input id="tags">
 </div>
+
 <div id="map" style="height: 180px;"></div>
 	<script>
 		
-		var map = L.map('map').setView([51.505, -0.09], 13);
+		var map = new L.map('map', {zoom: 10, center: new L.latLng([51.505, -0.09]) });
 		
-		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-		    maxZoom: 18
-		}).addTo(map);
+		var markersLayer = new L.LayerGroup();	//layer contain searched elements
+
+		var controlSearch = new L.Control.Search({layer: markersLayer, initial: false, position:'topright'});
+
+		map.addLayer(new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png'));
+
+		map.addControl( controlSearch );
+
+		// map.addControl( new L.Control.Search({layer: searchLayer}) );
+
+		// L.map('map', { searchControl: {layer: searchLayer} });
+
+		/*
+		var map = new L.Map('map', {zoom: 9, center: new L.latLng(data[0].loc) });	//set center from first location
+
+		map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));	//base layer
+
+		var markersLayer = new L.LayerGroup();	//layer contain searched elements
+		map.addLayer(markersLayer);
+		*/
+
 
 	</script>
 </body>
